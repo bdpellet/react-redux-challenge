@@ -1,8 +1,8 @@
-import { TEST } from '../actions/types';
+import { RETRIEVE_DATA } from '../actions/types';
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case TEST:
+    case RETRIEVE_DATA:
       return action.payload;
   }
 
