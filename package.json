@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "postinstall": "npm install webpack -g && npm run deploybuild",
+    "deploybuild": "webpack --progress --profile --colors --display-error-details --display-cached",
     "dev": "webpack && node index.js"
   },
   "license": "ISC",
