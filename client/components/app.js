@@ -7,37 +7,41 @@ import SubjectForm from './subjectForm';
 import PersonForm from './personForm';
 import RelationshipForm from './relationshipForm';
 
-
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { relationship:'' };
-		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-		this.generateRelationship = this.generateRelationship.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = { relationship: null };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.generateRelationship = this.generateRelationship.bind(this);
+  }
 
-	componentWillMount() {
-		this.props.retrieveData();
-	}
+  componentWillMount() {
+    this.props.retrieveData();
+  }
 
-	handleFormSubmit(values) {
-		this.props.addRecord(values);
-	}
+  handleFormSubmit(values) {
+    this.props.addRecord(values);
+  }
 
-	generateRelationship(values) {
-		const relationship = findRelationship(values, this.props.fb.people, this.props.fb.subjects);
+  generateRelationship(values) {
+    const relationship = findRelationship(values, this.props.fb.people, this.props.fb.subjects);
     this.setState({relationship});
-	}
+  }
 
   render() {
-  	const { people, subjects } = this.props.fb;
+    const { people, subjects } = this.props.fb;
 
     return (
       <div>
-      	<SubjectForm onSubmit={this.handleFormSubmit} />
-      	<PersonForm onSubmit={this.handleFormSubmit} people={people} subjects={subjects} />
-      	<RelationshipForm onSubmit={this.generateRelationship} people={people} subjects={subjects} />
-        { this.state.relationship }
+        <SubjectForm onSubmit={this.handleFormSubmit} subjects={subjects} />
+        <PersonForm onSubmit={this.handleFormSubmit} people={people} subjects={subjects} />
+        <RelationshipForm onSubmit={this.generateRelationship} people={people} subjects={subjects} />
+        {this.state.relationship &&
+          <div className="output">
+            <hr />
+            <label>{ this.state.relationship }</label>
+          </div>
+        }
       </div>
     );
   }

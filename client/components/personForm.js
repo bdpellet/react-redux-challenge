@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import _ from 'lodash';
 
 const fields = {
   friends: [],
@@ -8,15 +7,15 @@ const fields = {
 }
 
 const PersonForm = (props) => {
-  const { people, subjects, handleSubmit } = props;
+  const { people, subjects, handleSubmit, reset } = props;
 
   const renderItemCheckBox = (items, type) => {
     return _.map(items, (item, key) => {
       const f = type === 'subject' ? fields.subjects : fields.friends;
       return (
-        <label key={key}>
-          {item.name}
+        <label className="checkbox-label" key={key}>
           <input type="checkbox" onChange={e => e.target.checked ? f.push(key) : f.splice(f.indexOf(key), 1)} />
+          {item.name}
         </label>
       )
     });
@@ -24,19 +23,25 @@ const PersonForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-header">Add a person</div>
       <div className="fields-container">
-        <label>Person name:</label>
+        <div className="fields-header">Add a person</div>
+        <br /><hr />
+        <label>Name: </label>
         <Field name="name" component="input" type="text" placeholder="new person"/>
-        <br />
-        <br />
-        <label>Add the fields this person is an expert in:</label>
-        {renderItemCheckBox(subjects, 'subject')}
-        <br />
-        <br />
-        <label>Select your friends:</label>
-        {renderItemCheckBox(people, 'people')}
-        <button type="submit">Submit</button>
+        <br /><hr />
+        <div className="fields-checkbox-container">
+          <label>Expert at: </label>
+          <br />
+          {renderItemCheckBox(subjects, 'subject')}
+        </div>
+        <br /><hr />
+        <div className="fields-checkbox-container">
+          <label>Friends: </label>
+          <br />
+          {renderItemCheckBox(people, 'people')}
+        </div>
+        <br /><hr />
+        <button type="submit">Add Person</button>
       </div>
     </form>
   )
