@@ -13,10 +13,10 @@ const PersonForm = (props) => {
     return _.map(items, (item, key) => {
       const f = type === 'subject' ? fields.subjects : fields.friends;
       return (
-        <label className="checkbox-label" key={key}>
-          <input type="checkbox" onChange={e => e.target.checked ? f.push(key) : f.splice(f.indexOf(key), 1)} />
-          {item.name}
-        </label>
+          <div key={key} className="fields-checkbox-item">
+            <input className="checkbox-custom" type="checkbox" onChange={e => e.target.checked ? f.push(key) : f.splice(f.indexOf(key), 1)} />
+            <label className="checkbox-custom-label">{item.name}</label>
+          </div>
       )
     });
   }
@@ -25,22 +25,20 @@ const PersonForm = (props) => {
     <form onSubmit={handleSubmit}>
       <div className="fields-container">
         <div className="fields-header">Add a person</div>
-        <br /><hr />
-        <label>Name: </label>
+        <hr />
+        <label className="field-header">Name: </label>
         <Field name="name" component="input" type="text" placeholder="new person"/>
-        <br /><hr />
+        <hr />
+        <label className="field-header">Select all the subjects this person is an expert in: </label>
         <div className="fields-checkbox-container">
-          <label>Expert at: </label>
-          <br />
           {renderItemCheckBox(subjects, 'subject')}
         </div>
-        <br /><hr />
+        <hr />
+        <label className="field-header">Select all the people this person knows: </label>
         <div className="fields-checkbox-container">
-          <label>Friends: </label>
-          <br />
           {renderItemCheckBox(people, 'people')}
         </div>
-        <br /><hr />
+        <hr />
         <button type="submit">Add Person</button>
       </div>
     </form>

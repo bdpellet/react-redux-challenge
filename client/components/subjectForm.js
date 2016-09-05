@@ -8,12 +8,12 @@ const SubjectForm = (props) => {
     <form onSubmit={handleSubmit}>
       <div className="fields-container">
         <span className="fields-header">Add a subject</span>
-        <br /><hr />
+        <hr />
         <div>
-          <label>Name: </label>
+          <label className="field-header">Name: </label>
           <Field name="name" component="input" type="text" placeholder="new subject"/>
         </div>
-        <br /><hr />
+        <hr />
         <button disabled={console.log(this)} type="submit">Add Subject</button>
       </div>
     </form>
